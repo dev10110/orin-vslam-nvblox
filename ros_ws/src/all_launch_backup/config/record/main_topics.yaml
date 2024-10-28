@@ -1,0 +1,115 @@
+topics:
+  - name: "/camera/infra1/camera_info"
+    qos_profile: "sensor_data"  # Options: default, sensor_data
+  - name: "/camera/infra1/image_rect_raw"
+  - name: "/camera/infra1/metadata"
+  - name: "/diagnostics"
+  - name: "/diagnostics_agg"
+  - name: "/joy"
+  - name: "/parameter_events"
+  - name: "/px4_2/fmu/in/commander_set_state"
+  - name: "/px4_2/fmu/in/trajectory_setpoint"
+  - name: "/px4_2/fmu/in/vehicle_command"
+  - name: "/px4_2/fmu/in/vehicle_visual_odometry"
+  - name: "/px4_2/fmu/out/commander_status"
+  - name: "/px4_2/fmu/out/simple_battery_status"
+  - name: "/px4_2/fmu/out/timesync_status"
+  - name: "/px4_2/fmu/out/vehicle_attitude"
+  - name: "/px4_2/fmu/out/vehicle_local_position"
+  - name: "/px4_2/fmu/out/vehicle_status"
+  - name: "/px4_2/viz/trajectory_setpoint"
+  - name: "/tf"
+  - name: "/tf_static"
+  - name: "/vicon/px4_2/px4_2"
+  - name: "/visual_slam/status"
+  - name: "/visual_slam/vis/odometry"
+  - name: "/visual_slam/tracking/vo_path"
+  - name: "/visual_slam/tracking/vo_pose"
+  - name: "/visual_slam/tracking/vo_pose_covariance"
+  - name: "/visual_slam/vis/observations_cloud"
+    
+
+    # # here are a list of topics collected
+    # /camera/accel/imu_info
+    # /camera/accel/metadata
+    # /camera/accel/sample
+    # /camera/depth/camera_info
+    # /camera/depth/color/points
+    # /camera/depth/image_rect_raw
+    # /camera/depth/image_rect_raw/compressed
+    # /camera/depth/image_rect_raw/compressedDepth
+    # /camera/depth/image_rect_raw/theora
+    # /camera/depth/metadata
+    # /camera/extrinsics/depth_to_accel
+    # /camera/extrinsics/depth_to_depth
+    # /camera/extrinsics/depth_to_gyro
+    # /camera/extrinsics/depth_to_infra1
+    # /camera/extrinsics/depth_to_infra2
+    # /camera/gyro/imu_info
+    # /camera/gyro/metadata
+    # /camera/gyro/sample
+    # /camera/imu
+    # /camera/infra1/camera_info
+    # /camera/infra1/image_rect_raw
+    # /camera/infra1/image_rect_raw/compressed
+    # /camera/infra1/image_rect_raw/compressedDepth
+    # /camera/infra1/image_rect_raw/theora
+    # /camera/infra1/metadata
+    # /camera/infra2/camera_info
+    # /camera/infra2/image_rect_raw
+    # /camera/infra2/image_rect_raw/compressed
+    # /camera/infra2/image_rect_raw/compressedDepth
+    # /camera/infra2/image_rect_raw/theora
+    # /camera/infra2/metadata
+    # /camera/realsense_splitter_node/output/depth
+    # /camera/realsense_splitter_node/output/infra_1
+    # /camera/realsense_splitter_node/output/infra_2
+    # /camera/realsense_splitter_node/output/pointcloud
+    # /clicked_point
+    # /diagnostics
+    # /diagnostics_agg
+    # /diagnostics_toplevel_state
+    # /goal_pose
+    # /initialpose
+    # /joy
+    # /joy/set_feedback
+    # /parameter_events
+    # /px4_2/fmu/in/commander_set_state
+    # /px4_2/fmu/in/parameter_req
+    # /px4_2/fmu/in/trajectory_setpoint
+    # /px4_2/fmu/in/vehicle_command
+    # /px4_2/fmu/in/vehicle_visual_odometry
+    # /px4_2/fmu/out/commander_status
+    # /px4_2/fmu/out/parameter_res
+    # /px4_2/fmu/out/simple_battery_status
+    # /px4_2/fmu/out/timesync_status
+    # /px4_2/fmu/out/vehicle_attitude
+    # /px4_2/fmu/out/vehicle_local_position
+    # /px4_2/fmu/out/vehicle_status
+    # /px4_2/viz/trajectory_setpoint
+    # /rosout
+    # /tf
+    # /tf_static
+    # /vicon/px4_2/px4_2
+    # /vicon/px4_2/px4_2/pose
+    # /visual_slam/imu
+    # /visual_slam/status
+    # /visual_slam/tracking/odometry
+    # /visual_slam/tracking/slam_path
+    # /visual_slam/tracking/vo_path
+    # /visual_slam/tracking/vo_pose
+    # /visual_slam/tracking/vo_pose_covariance
+    # /visual_slam/vis/gravity
+    # /visual_slam/vis/landmarks_cloud
+    # /visual_slam/vis/localizer
+    # /visual_slam/vis/localizer_loop_closure_cloud
+    # /visual_slam/vis/localizer_map_cloud
+    # /visual_slam/vis/localizer_observations_cloud
+    # /visual_slam/vis/loop_closure_cloud
+    # /visual_slam/vis/observations_cloud
+    # /visual_slam/vis/pose_graph_edges
+    # /visual_slam/vis/pose_graph_edges2
+    # /visual_slam/vis/pose_graph_nodes
+    # /visual_slam/vis/slam_odometry
+    # /visual_slam/vis/velocity
+    # 
