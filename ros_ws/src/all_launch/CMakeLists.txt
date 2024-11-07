@@ -10,22 +10,13 @@ find_package(Eigen3 REQUIRED)
 
 include_directories(${EIGEN3_INCLUDE_DIR})
 
-add_executable(reset_vslam_server
-	src/reset_vslam_server.cpp)
+add_executable(reset_vslam_server src/reset_vslam_server.cpp)
 
-ament_target_dependencies(reset_vslam_server
-	rclcpp
-	geometry_msgs
-	tf2_ros
-	vslam_interfaces
-	Eigen3
-	)
+ament_target_dependencies(reset_vslam_server rclcpp geometry_msgs tf2_ros
+                          vslam_interfaces Eigen3)
 
+install(TARGETS reset_vslam_server DESTINATION lib/${PROJECT_NAME})
 
-install(TARGETS reset_vslam_server
-	DESTINATION lib/${PROJECT_NAME})
-
-install(DIRECTORY config launch
-  DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY config launch DESTINATION share/${PROJECT_NAME})
 
 ament_package()
