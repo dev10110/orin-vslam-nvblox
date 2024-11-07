@@ -6,15 +6,15 @@ from isaac_ros_visual_slam_interfaces.msg import VisualSlamStatus
 class VslamDiagnosticNode(Node):
     def __init__(self):
         super().__init__('vslam_diagnostic_node')
-        
+
         # Subscriber to a Bool topic
         self.subscription = self.create_subscription(
             VisualSlamStatus,
-            '/visual_slam/status', 
+            '/visual_slam/status',
             self.listener_callback,
             10 # QoS
         )
-        
+
         # Publisher for diagnostic status
         self.diagnostic_publisher = self.create_publisher(DiagnosticArray, 'diagnostics', 10)
 
@@ -37,7 +37,7 @@ class VslamDiagnosticNode(Node):
         self.publish_diagnostic_status()
 
     def parse_status(self, msg):
-        
+
         if msg.vo_state == 0:
             return "Unknown State", DiagnosticStatus.ERROR
         if msg.vo_state == 1:
@@ -52,7 +52,7 @@ class VslamDiagnosticNode(Node):
     def create_blank_diagnostics_msg(self):
         # Initialize the DiagnosticArray
         diagnostics = DiagnosticArray()
-        
+
         # add main status
         vo_state = DiagnosticStatus()
         vo_state.name = "vslam_monitor/vo_state"
@@ -63,10 +63,10 @@ class VslamDiagnosticNode(Node):
         return diagnostics
 
     def create_diagnostics_msg(self, msg):
-        
+
         # Initialize the DiagnosticArray
         diagnostics = DiagnosticArray()
-        
+
         # add main status
         vo_state = DiagnosticStatus()
         vo_state.name = "vslam_monitor/vo_state"
@@ -122,13 +122,13 @@ class VslamDiagnosticNode(Node):
         # status = DiagnosticStatus()
         # status.name = "vslam_monitor/track_execution_time_max"
         # status.message = f"{msg.track_execution_time_max}"
-        # status.level = DiagnosticStatus.OK 
+        # status.level = DiagnosticStatus.OK
         # diagnostics.status.append(status)
 
         return diagnostics
 
     def publish_diagnostic_status(self):
-        
+
         if self.has_received_message:
             self.diagnostics = self.create_diagnostics_msg(self.last_received_value)
         else:
@@ -158,4 +158,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-

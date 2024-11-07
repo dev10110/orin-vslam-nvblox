@@ -16,4 +16,3 @@ def generate_launch_description():
     bridge_nodes = [create_bridge_node(r) for r in robots]
 
     return LaunchDescription(bridge_nodes)
-

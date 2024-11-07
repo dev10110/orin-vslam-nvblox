@@ -34,5 +34,3 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_profiles/rtps_udp_profile.xml
       - ROS_DOMAIN_ID=2
-
-

@@ -41,10 +41,10 @@ def generate_launch_description():
 
     bringup_dir = get_package_share_directory('all_launch')
 
-    
+
     # define actions
     actions = []
-    
+
     # declare params
     run_gui_arg = DeclareLaunchArgument(
             "run_gui", default_value="True")
@@ -63,7 +63,7 @@ def generate_launch_description():
 
     # create the vslam monitor node
     vslam_monitor_node = Node(
-            package="diagnostics_monitor", 
+            package="diagnostics_monitor",
             executable="vslam_monitor",
             output="screen"
             )

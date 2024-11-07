@@ -1,12 +1,12 @@
 # from typing import List, Tuple
-# 
+#
 # from isaac_ros_launch_utils.all_types import *
 # import isaac_ros_launch_utils as lu
-# 
+#
 # from nvblox_ros_python_utils.nvblox_launch_utils import NvbloxMode, NvbloxCamera
 # from nvblox_ros_python_utils.nvblox_constants import NVBLOX_CONTAINER_NAME
-# 
-# 
+#
+#
 # def get_isaac_sim_remappings(mode: NvbloxMode, num_cameras: int,
 #                              lidar: bool) -> List[Tuple[str, str]]:
 #     remappings = []
@@ -24,8 +24,8 @@
 #     if lidar:
 #         remappings.append(('pointcloud', '/front_3d_lidar/point_cloud'))
 #     return remappings
-# 
-# 
+#
+#
 # def get_realsense_remappings(mode: NvbloxMode) -> List[Tuple[str, str]]:
 #     remappings = []
 #     remappings.append(('camera_0/depth/image', '/camera/realsense_splitter_node/output/depth'))
@@ -39,8 +39,8 @@
 #         remappings.append(('camera_0/color/image', '/camera/color/image_raw'))
 #         remappings.append(('camera_0/color/camera_info', '/camera/color/camera_info'))
 #     return remappings
-# 
-# 
+#
+#
 # def get_zed_remappings(mode: NvbloxMode) -> List[Tuple[str, str]]:
 #     assert mode is NvbloxMode.static, 'Nvblox only supports static mode for ZED cameras.'
 #     remappings = []
@@ -50,14 +50,14 @@
 #     remappings.append(('camera_0/color/camera_info', '/zed/zed_node/rgb/camera_info'))
 #     remappings.append(('pose', '/zed/zed_node/pose'))
 #     return remappings
-# 
-# 
+#
+#
 # def add_nvblox(args: lu.ArgumentContainer) -> List[Action]:
 #     mode = NvbloxMode[args.mode]
 #     camera = NvbloxCamera[args.camera]
 #     num_cameras = int(args.num_cameras)
 #     use_lidar = lu.is_true(args.lidar)
-# 
+#
 #     base_config = lu.get_path('nvblox_examples_bringup', 'config/nvblox/nvblox_base.yaml')
 #     segmentation_config = lu.get_path('nvblox_examples_bringup',
 #                                       'config/nvblox/specializations/nvblox_segmentation.yaml')
@@ -69,7 +69,7 @@
 #                                    'config/nvblox/specializations/nvblox_realsense.yaml')
 #     zed_config = lu.get_path('nvblox_examples_bringup',
 #                              'config/nvblox/specializations/nvblox_zed.yaml')
-# 
+#
 #     if mode is NvbloxMode.static:
 #         mode_config = {}
 #     elif mode is NvbloxMode.people:
@@ -80,7 +80,7 @@
 #         assert not use_lidar, 'Can not run lidar with dynamic mode.'
 #     else:
 #         raise Exception(f'Mode {mode} not implemented for nvblox.')
-# 
+#
 #     if camera is NvbloxCamera.isaac_sim:
 #         remappings = get_isaac_sim_remappings(mode, num_cameras, use_lidar)
 #         camera_config = isaac_sim_config
@@ -96,14 +96,14 @@
 #         assert not use_lidar, 'Can not run lidar for zed example.'
 #     else:
 #         raise Exception(f'Camera {camera} not implemented for nvblox.')
-# 
+#
 #     parameters = []
 #     parameters.append(base_config)
 #     parameters.append(mode_config)
 #     parameters.append(camera_config)
 #     parameters.append({'num_cameras': num_cameras})
 #     parameters.append({'use_lidar': use_lidar})
-# 
+#
 #     # Add the nvblox node.
 #     if mode is NvbloxMode.people:
 #         nvblox_node_name = 'nvblox_human_node'
@@ -111,7 +111,7 @@
 #     else:
 #         nvblox_node_name = 'nvblox_node'
 #         nvblox_plugin_name = 'nvblox::NvbloxNode'
-# 
+#
 #     nvblox_node = ComposableNode(
 #         name=nvblox_node_name,
 #         package='nvblox_ros',
@@ -119,7 +119,7 @@
 #         remappings=remappings,
 #         parameters=parameters,
 #     )
-# 
+#
 #     actions = []
 #     if args.run_standalone:
 #         actions.append(lu.component_container(args.container_name))
@@ -129,8 +129,8 @@
 #                      str(camera), "' in mode '",
 #                      str(mode), "'"]))
 #     return actions
-# 
-# 
+#
+#
 # def generate_launch_description() -> LaunchDescription:
 #     args = lu.ArgumentContainer()
 #     args.add_arg('mode')
@@ -139,6 +139,6 @@
 #     args.add_arg('lidar', 'False')
 #     args.add_arg('container_name', NVBLOX_CONTAINER_NAME)
 #     args.add_arg('run_standalone', 'False')
-# 
+#
 #     args.add_opaque_function(add_nvblox)
 #     return LaunchDescription(args.get_launch_actions())

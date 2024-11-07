@@ -25,8 +25,8 @@ def generate_launch_description():
             'robot_name', default_value="px4_2")
 
     microXRCE_bridge = ExecuteProcess(
-            cmd=['MicroXRCEAgent', 'serial', '--dev', '/dev/ttyUSB1', '-b', '921600'], 
-            name='microXRCEAgent', 
+            cmd=['MicroXRCEAgent', 'serial', '--dev', '/dev/ttyUSB1', '-b', '921600'],
+            name='microXRCEAgent',
             condition=IfCondition(LaunchConfiguration('run_uxrce')),
             output='both')
 
@@ -38,11 +38,11 @@ def generate_launch_description():
             name="mavlink-routerd",
             condition=IfCondition(LaunchConfiguration('run_mavlink')),
             output='log')
-    
+
     robot_name = LaunchConfiguration('robot_name')
     vicon_px4_bridge_node = Node(
-        package='vicon_px4_bridge', 
-        executable='bridge', 
+        package='vicon_px4_bridge',
+        executable='bridge',
         output='screen',
         parameters=[{'px4_name': robot_name, 'vicon_name': robot_name}],
         condition=IfCondition(LaunchConfiguration('run_vicon')),
@@ -61,6 +61,6 @@ def generate_launch_description():
         robot_name_arg,
         microXRCE_bridge,
         mavlink,
-        vicon_px4_bridge_node, 
+        vicon_px4_bridge_node,
         vicon_launch
         ])

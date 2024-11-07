@@ -27,7 +27,7 @@ topics:
   - name: "/visual_slam/tracking/vo_pose"
   - name: "/visual_slam/tracking/vo_pose_covariance"
   - name: "/visual_slam/vis/observations_cloud"
-    
+
 
     # # here are a list of topics collected
     # /camera/accel/imu_info
@@ -112,4 +112,4 @@ topics:
     # /visual_slam/vis/pose_graph_nodes
     # /visual_slam/vis/slam_odometry
     # /visual_slam/vis/velocity
-    # 
+    #

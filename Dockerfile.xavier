@@ -83,9 +83,9 @@ RUN meson setup build . --buildtype=release \
 ## install microXRCE agent
 WORKDIR /root
 # try msater for now...
-RUN git clone --depth 1 --branch v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git 
-WORKDIR /root/Micro-XRCE-DDS-Agent/build 
-RUN cmake -DCMAKE_BUILD_TYPE=Release .. 
+RUN git clone --depth 1 --branch v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+WORKDIR /root/Micro-XRCE-DDS-Agent/build
+RUN cmake -DCMAKE_BUILD_TYPE=Release ..
 RUN make -j$(($(nproc) - 1))
 RUN make install -j$(($(nproc) - 1))
 RUN ldconfig /usr/local/lib/

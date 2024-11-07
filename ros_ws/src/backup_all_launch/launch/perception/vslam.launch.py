@@ -65,7 +65,7 @@ def generate_launch_description():
         ##########################################
         ######### VISUAL SLAM NODE SETUP #########
         ##########################################
-    
+
         # static transform between base_link and camera_link
         Node(
             package='tf2_ros',
@@ -126,27 +126,27 @@ def generate_launch_description():
                  dst=['/camera/infra_2/image_rect_raw']),
 
 
-        SetParameter(name='num_cameras', value= 2), 
-        SetParameter(name='min_num_images', value=2), 
-        SetParameter(name='enable_localization_n_mapping', value= False), 
-        SetParameter(name='enable_imu_fusion', value= False), 
-        SetParameter(name='gyro_noise_density', value= 0.000244), 
-        SetParameter(name='gyro_random_walk', value= 0.000019393), 
-        SetParameter(name='accel_noise_density', value= 0.001862), 
-        SetParameter(name='accel_random_walk', value= 0.003), 
-        SetParameter(name='calibration_frequency', value= 200.0), 
-        SetParameter(name='rig_frame', value= 'base_link'), 
-        SetParameter(name='imu_frame', value= 'front_stereo_camera_imu'), 
-        SetParameter(name='enable_slam_visualization', value= True), 
-        SetParameter(name='enable_landmarks_view', value= True), 
-        SetParameter(name='enable_observations_view', value= True), 
-        SetParameter(name='path_max_size', value= 200), 
-        SetParameter(name='verbosity', value= 5), 
-        SetParameter(name='enable_debug_mode', value= False), 
-        SetParameter(name='debug_dump_path', value= '/tmp/cuvslam'), 
-        SetParameter(name='map_frame', value= 'map'), 
-        SetParameter(name='odom_frame', value= 'odom'), 
-        SetParameter(name='base_frame', value= 'base_link'), 
+        SetParameter(name='num_cameras', value= 2),
+        SetParameter(name='min_num_images', value=2),
+        SetParameter(name='enable_localization_n_mapping', value= False),
+        SetParameter(name='enable_imu_fusion', value= False),
+        SetParameter(name='gyro_noise_density', value= 0.000244),
+        SetParameter(name='gyro_random_walk', value= 0.000019393),
+        SetParameter(name='accel_noise_density', value= 0.001862),
+        SetParameter(name='accel_random_walk', value= 0.003),
+        SetParameter(name='calibration_frequency', value= 200.0),
+        SetParameter(name='rig_frame', value= 'base_link'),
+        SetParameter(name='imu_frame', value= 'front_stereo_camera_imu'),
+        SetParameter(name='enable_slam_visualization', value= True),
+        SetParameter(name='enable_landmarks_view', value= True),
+        SetParameter(name='enable_observations_view', value= True),
+        SetParameter(name='path_max_size', value= 200),
+        SetParameter(name='verbosity', value= 5),
+        SetParameter(name='enable_debug_mode', value= False),
+        SetParameter(name='debug_dump_path', value= '/tmp/cuvslam'),
+        SetParameter(name='map_frame', value= 'map'),
+        SetParameter(name='odom_frame', value= 'odom'),
+        SetParameter(name='base_frame', value= 'base_link'),
         SetParameter(name='enable_rectified_pose', value=True),
         SetParameter(name='enable_image_denoising', value=False),
         SetParameter(name='rectified_images', value=True),

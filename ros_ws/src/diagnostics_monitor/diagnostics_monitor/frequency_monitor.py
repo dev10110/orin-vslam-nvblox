@@ -1,5 +1,5 @@
 
-import rclpy 
+import rclpy
 from rclpy.node import Node
 from diagnostic_updater import Updater, HeaderlessTopicDiagnostic, FrequencyStatusParam, TimeStampStatusParam
 from rclpy import qos
@@ -44,14 +44,14 @@ class FrequencyMonitor(Node):
                 }
 
         frequency_status_param = FrequencyStatusParam(
-                self.freq_bounds, 
+                self.freq_bounds,
                 self.tolerance,
                 self.window_size)
-        
+
         # add a topic diagnostic
         self.topic_diagnostic = HeaderlessTopicDiagnostic(
-                self.topic_name, 
-                self.updater, 
+                self.topic_name,
+                self.updater,
                 frequency_status_param
                 )
 
@@ -87,4 +87,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-

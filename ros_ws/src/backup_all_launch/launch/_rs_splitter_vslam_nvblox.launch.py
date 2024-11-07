@@ -32,7 +32,7 @@ def generate_launch_description():
     global_frame = LaunchConfiguration('global_frame',
                                        default='odom')
 
-    # Create a shared container to hold composable nodes 
+    # Create a shared container to hold composable nodes
     # for speed ups through intra process communication.
     shared_container_name = "shared_nvblox_container"
     shared_container = Node(
@@ -54,7 +54,7 @@ def generate_launch_description():
     vslam_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             bringup_dir, 'launch', 'perception', 'vslam.launch.py')]),
-        launch_arguments={'output_odom_frame_name': global_frame, 
+        launch_arguments={'output_odom_frame_name': global_frame,
                           'attach_to_shared_component_container': 'True',
                           'component_container_name': shared_container_name}.items(),
         condition=IfCondition(LaunchConfiguration('run_vslam'))
@@ -93,7 +93,7 @@ def generate_launch_description():
         launch_arguments={'config_name': 'basic.rviz',
                           'global_frame': global_frame}.items(),
         condition=IfCondition(LaunchConfiguration('run_rviz')))
-    
+
     # Foxglove
     foxglove_bridge_dir = get_package_share_directory("foxglove_bridge")
     foxglove_launch_file = os.path.join(foxglove_bridge_dir, 'launch', 'foxglove_bridge_launch.xml')

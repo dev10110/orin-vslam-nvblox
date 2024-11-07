@@ -27,10 +27,10 @@ def generate_launch_description():
             package="tf2_ros",
             executable="static_transform_publisher",
             arguments = [
-                "--x", "0.0", 
+                "--x", "0.0",
                 "--y", "0.0",
                 "--z", "0.0",
-                "--roll", f"{1.0 * math.pi}", 
+                "--roll", f"{1.0 * math.pi}",
                 "--pitch", "0",
                 "--yaw", f"{0.5 * math.pi}",
                 "--child-frame-id", "/vicon/world/NED",

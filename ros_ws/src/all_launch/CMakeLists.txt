@@ -14,8 +14,8 @@ add_executable(reset_vslam_server
 	src/reset_vslam_server.cpp)
 
 ament_target_dependencies(reset_vslam_server
-	rclcpp 
-	geometry_msgs 
+	rclcpp
+	geometry_msgs
 	tf2_ros
 	vslam_interfaces
 	Eigen3

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Builds the Intel Realsense library librealsense on a Jetson Nano Development Kit
-# Copyright (c) 2016-21 Jetsonhacks 
+# Copyright (c) 2016-21 Jetsonhacks
 # MIT License
 
 LIBREALSENSE_DIRECTORY=${HOME}/librealsense
@@ -13,7 +13,7 @@ function usage ()
 {
     echo "Usage: ./build-librealsense.sh [-n | -no_cuda] [-v | -version <version>] [-j | --jobs <number of jobs>] [-h | --help] "
     echo "-n  | --no_cuda   Build with no CUDA (Defaults to with CUDA)"
-    echo "-v  | --version   Version of librealsense to build 
+    echo "-v  | --version   Version of librealsense to build
                       (defaults to latest release)"
     echo "-j  | --jobs      Number of concurrent jobs (Default 1 on <= 4GB RAM
                       #of cores-1 otherwise)"
@@ -40,7 +40,7 @@ do
    case "$1" in
       -n | --build_no_cuda) USE_CUDA=false   ; shift ;;
       -v | --version )      LIBREALSENSE_VERSION="$2" ; shift 2 ;;
-      -j | --jobs)          NUM_PROCS="$2" ; 
+      -j | --jobs)          NUM_PROCS="$2" ;
                             shift 2 ;
                             re_isanum='^[0-9]+$'
                             if ! [[ $NUM_PROCS =~ $re_isanum ]] ; then
@@ -48,7 +48,7 @@ do
                               usage
                             else
                               if [ $NUM_PROCS -eq "0" ]; then
-                                echo "Number of jobs must be a positive, whole number" 
+                                echo "Number of jobs must be a positive, whole number"
                               fi
                             fi ;
        ;;
@@ -58,7 +58,7 @@ do
    esac
 done
 
-# From lukechilds gist discussion: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c 
+# From lukechilds gist discussion: https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
 # We use wget instead of curl here
 # Sample usage:
 #   VERSION_STRINGS=$(get_latest_release IntelRealSense/librealsense)
@@ -66,7 +66,7 @@ done
 function get_latest_release () {
   # redirect wget to standard out and grep out the tag_name
   wget -qO- https://api.github.com/repos/$1/releases/latest |
-    grep -Po '"tag_name": "\K.*?(?=")' 
+    grep -Po '"tag_name": "\K.*?(?=")'
 }
 
 if [[ $LIBREALSENSE_VERSION == "" ]] ; then
@@ -115,7 +115,7 @@ cd $LIBREALSENSE_DIRECTORY
 git checkout $LIBREALSENSE_VERSION
 
 # Now compile librealsense and install
-mkdir build 
+mkdir build
 cd build
 # Build examples, including graphical ones
 echo "${green}Configuring Make system${reset}"
@@ -151,7 +151,7 @@ else
   echo "librealsense did not build " >&2
   echo "Retrying ... "
   # Single thread this time
-  time make 
+  time make
   if [ $? -eq 0 ] ; then
     echo "librealsense make successful"
   else
@@ -163,11 +163,11 @@ else
 fi
 echo "${green}Installing librealsense, headers, tools and demos${reset}"
 sudo make install
-  
+
 if  grep -Fxq 'export PYTHONPATH=$PYTHONPATH:/usr/local/lib' ~/.bashrc ; then
     echo "PYTHONPATH already exists in .bashrc file"
 else
-   echo 'export PYTHONPATH=$PYTHONPATH:/usr/local/lib' >> ~/.bashrc 
+   echo 'export PYTHONPATH=$PYTHONPATH:/usr/local/lib' >> ~/.bashrc
    echo "PYTHONPATH added to ~/.bashrc. Pyhon wrapper is now available for importing pyrealsense2"
 fi
 

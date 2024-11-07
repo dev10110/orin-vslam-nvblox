@@ -1,7 +1,7 @@
 ---
 vicon_bridge:
         ros__parameters:
-                publish_specific_segment: False 
+                publish_specific_segment: False
                 target_subject_name: "px4_10"
                 target_segment_name: "px4_10"
                 world_frame_id: "world"

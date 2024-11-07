@@ -52,7 +52,7 @@ def generate_launch_description():
         LaunchConfiguration('setup_for_realsense', default='False'))
     setup_for_zed = IfCondition(
         LaunchConfiguration('setup_for_zed', default='False'))
-    
+
     # Option to attach the nodes to a shared component container for speed ups through intra process communication.
     # Make sure to set the 'component_container_name' to the name of the component container you want to attach to.
     attach_to_shared_component_container_arg = LaunchConfiguration('attach_to_shared_component_container', default=False)
@@ -66,7 +66,7 @@ def generate_launch_description():
         output='screen',
         condition=UnlessCondition(attach_to_shared_component_container_arg)
     )
-    
+
     load_composable_nodes = LoadComposableNodes(
         target_container=component_container_name_arg,
         composable_node_descriptions=[

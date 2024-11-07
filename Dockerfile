@@ -476,7 +476,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 #     && cd .. && apt-get install -y ./*.deb && rm *.deb \
 #     && cd moveit_resources && bloom-generate rosdebian && fakeroot debian/rules binary \
 #     && cd .. && apt-get install -y ./*.deb && rm *.deb
-# 
+#
 # # Install MoveIt task constructor from source.  The "demo" package depends on moveit_resources_panda_moveit_config,
 # # installed from source above.
 # RUN --mount=type=cache,target=/var/cache/apt \
@@ -495,12 +495,12 @@ RUN --mount=type=cache,target=/var/cache/apt \
 #     && cd ../ && apt-get install -y ./*.deb && rm ./*.deb \
 #     && cd demo && bloom-generate rosdebian && fakeroot debian/rules binary DEB_BUILD_OPTIONS=nocheck \
 #     && cd ../ && apt-get install -y ./*.deb && rm ./*.deb
-# 
+#
 # # MoveIt 2's hybrid planning package depends on moveit_resources_panda_moveit_config, installed from source above.
 # RUN --mount=type=cache,target=/var/cache/apt \
 # apt-get update && apt-get install -y \
 #     ros-humble-moveit-hybrid-planning
-# 
+#
 # # Install moveit2_tutorials from source (depends on moveit_hybrid_planning).
 # RUN --mount=type=cache,target=/var/cache/apt \
 #     mkdir -p ${ROS_ROOT}/src && cd ${ROS_ROOT}/src \
@@ -551,7 +551,7 @@ COPY docker/udev_rules/99-realsense-libusb-custom.rules /etc/udev/rules.d/99-rea
 # ########################################
 # ############ BUILD PX4 #################
 # ########################################
-# 
+#
 FROM ros2_rs AS ros2_rs_px4
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -578,8 +578,8 @@ RUN meson setup build . --buildtype=release \
 
 # install microXRCE agent
 WORKDIR /root
-RUN git clone --depth 1 --branch v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git 
-WORKDIR /root/Micro-XRCE-DDS-Agent/build 
+RUN git clone --depth 1 --branch v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+WORKDIR /root/Micro-XRCE-DDS-Agent/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release ..  && make -j$(($(nproc) - 1)) && make install -j$(($(nproc) - 1))
 RUN ldconfig /usr/local/lib/
 
@@ -596,7 +596,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   libboost-all-dev \
   ros-${ROS_DISTRO}-diagnostics \
   ros-${ROS_DISTRO}-rqt-robot-monitor \
-  ros-${ROS_DISTRO}-isaac-ros-visual-slam \ 
+  ros-${ROS_DISTRO}-isaac-ros-visual-slam \
   ros-${ROS_DISTRO}-isaac-ros-visual-slam-interfaces
 
 # fix setuptools

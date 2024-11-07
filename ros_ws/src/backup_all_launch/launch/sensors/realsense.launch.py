@@ -82,7 +82,7 @@ def generate_launch_description():
                 package='realsense2_camera',
                 plugin='realsense2_camera::RealSenseNodeFactory',
                 parameters=[config_file_with_splitter])])
-    
+
     load_composable_nodes_without_splitter = LoadComposableNodes(
         target_container=component_container_name_arg,
         condition=UnlessCondition(LaunchConfiguration('run_splitter')),
@@ -95,7 +95,7 @@ def generate_launch_description():
                 parameters=[config_file_without_splitter])])
 
     return LaunchDescription([
-        realsense_container, 
+        realsense_container,
         load_composable_nodes_with_splitter,
         load_composable_nodes_without_splitter
         ])

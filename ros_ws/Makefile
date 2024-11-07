@@ -16,7 +16,7 @@ clean:
 # Test all packages
 test:
 	@echo "Testing packages"
-	colcon test 
+	colcon test
 	colcon test-result --verbose
 
 # Clean specific package
@@ -36,9 +36,9 @@ test-%:
 	@echo "Building package: $*"
 	colcon build --symlink-install --continue-on-error --cmake-args -DCMAKE_BUILD_TYPE=$(mode) --packages-select $*
 
-# 
-# 
-# build: 
+#
+#
+# build:
 # 	if [ -z "$(pkg)" ]; then \
 #                 echo "building all"; \
 #                 colcon build --symlink-install --continue-on-error --cmake-args -DCMAKE_BUILD_TYPE=$(mode); \
@@ -46,8 +46,8 @@ test-%:
 #                 echo "building $(pkg)"; \
 #                 colcon build --symlink-install --continue-on-error --cmake-args -DCMAKE_BUILD_TYPE=$(mode) --packages-select $(pkg);\
 #         fi
-# 
-# clean: 
+#
+# clean:
 # 	if [ -z "$(pkg)" ]; then \
 #                 echo "cleaning all"; \
 #                 rm -r build install; \
@@ -55,7 +55,7 @@ test-%:
 #                 echo "cleaning $(pkg)"; \
 #                 rm -r build/$(pkg) install/$(pkg); \
 #         fi
-# 
+#
 # test:  all
 # 	if [ -z "$(pkg)" ]; then \
 #                 echo "specify the pkg to test"; \
@@ -64,4 +64,4 @@ test-%:
 #                 colcon test --packages-select $(pkg);\
 #                 colcon test-result --verbose; \
 #         fi
-# 
+#

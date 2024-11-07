@@ -4,7 +4,7 @@
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 #include <Eigen/Dense>
-#include "vslam_interfaces/srv/reset_vslam.hpp" 
+#include "vslam_interfaces/srv/reset_vslam.hpp"
 
 // Function to convert geometry_msgs::msg::Transform to Eigen::Affine3d
 Eigen::Affine3d transformToEigen(const geometry_msgs::msg::Transform& transform) {
@@ -60,7 +60,7 @@ public:
 	   tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
         // Create the service
         service_ = this->create_service<vslam_interfaces::srv::ResetVslam>(
-            "reset_vslam", 
+            "reset_vslam",
             std::bind(&ResetVslamServer::set_transform_callback, this, std::placeholders::_1, std::placeholders::_2)
         );
     }
@@ -107,7 +107,7 @@ private:
 	    auto eigen_relative_transform =  eigen_vicon * eigen_vslam.inverse();
 
             // Create a static transform message
-            geometry_msgs::msg::TransformStamped static_transform; 
+            geometry_msgs::msg::TransformStamped static_transform;
             static_transform.header.stamp = this->get_clock()->now();
             static_transform.header.frame_id = "vicon/world";
             static_transform.child_frame_id = "map";
@@ -137,4 +137,3 @@ int main(int argc, char * argv[])
     rclcpp::shutdown();
     return 0;
 }
-

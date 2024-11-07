@@ -3853,10 +3853,6 @@ magic_enum:
   ubuntu:
     focal: [ros-humble-magic-enum]
     jammy: [ros-humble-magic-enum]
-magic_enum:
-  ubuntu:
-    focal: [ros-humble-magic-enum]
-    jammy: [ros-humble-magic-enum]
 map_msgs:
   ubuntu:
     focal: [ros-humble-map-msgs]
@@ -4045,10 +4041,6 @@ metavision_driver_dbgsym:
   ubuntu:
     focal: [ros-humble-metavision-driver-dbgsym]
     jammy: [ros-humble-metavision-driver-dbgsym]
-metrics_plugins:
-  ubuntu:
-    focal: [ros-humble-metrics-plugins]
-    jammy: [ros-humble-metrics-plugins]
 metrics_plugins:
   ubuntu:
     focal: [ros-humble-metrics-plugins]

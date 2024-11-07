@@ -65,7 +65,7 @@ def generate_launch_description():
         ##########################################
         ######### VISUAL SLAM NODE SETUP #########
         ##########################################
-    
+
         # static transform between base_link and camera_link
         Node(
             package='tf2_ros',

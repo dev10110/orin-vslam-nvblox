@@ -22,7 +22,7 @@
   <exec_depend>nvblox_ros_python_utils</exec_depend>
 
   <!-- Nvblox -->
-  <!-- 
+  <!--
 	  <exec_depend>nvblox_ros</exec_depend>
   -->
 
