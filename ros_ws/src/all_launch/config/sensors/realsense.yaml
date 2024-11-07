@@ -26,17 +26,17 @@ color_info_qos: "SENSOR_DATA"
 color_qos: "SENSOR_DATA"
 
 depth_module:
-  profile: '640x480x90'
+  profile: '640x480x30'
   emitter_enabled: 0
-  emitter_on_off: true
+    # emitter_on_off: true
 depth_qos: "SENSOR_DATA"
 depth_info_qos: "SENSOR_DATA"
 
 infra_qos: "SENSOR_DATA"
 
 enable_accel: false
-enable_color: true
-enable_depth: true
+enable_color: false
+enable_depth: false
 enable_gyro: false
 enable_infra1: true
 enable_infra2: true

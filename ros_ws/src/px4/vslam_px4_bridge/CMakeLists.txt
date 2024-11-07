@@ -18,47 +18,34 @@ find_package(eigen3_cmake_module REQUIRED)
 find_package(Eigen3)
 find_package(tf2_ros REQUIRED)
 
-
-
-## ADD THE BRIDGE NODE
-add_executable(bridge 
-	src/vslam_px4_bridge.cpp
-	src/frame_transforms.cpp
-	)
-ament_target_dependencies(bridge 
-	rclcpp 
-	tf2 
-	px4_msgs 
-	nav_msgs 
-	tf2_ros 
-	Eigen3
-	sensor_msgs
-	geometry_msgs
-)
-target_include_directories(bridge PRIVATE
-	include
-	)
+# ADD THE BRIDGE NODE
+add_executable(bridge src/vslam_px4_bridge.cpp src/frame_transforms.cpp)
+ament_target_dependencies(
+  bridge
+  rclcpp
+  tf2
+  px4_msgs
+  nav_msgs
+  tf2_ros
+  Eigen3
+  sensor_msgs
+  geometry_msgs)
+target_include_directories(bridge PRIVATE include)
 
 ament_export_dependencies(eigen3_cmake_module)
 ament_export_dependencies(Eigen3)
 
-install(TARGETS
-  bridge
-  DESTINATION lib/${PROJECT_NAME})
+install(TARGETS bridge DESTINATION lib/${PROJECT_NAME})
 
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}/
-)
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
+  # the following line skips the linter which checks for copyrights uncomment
+  # the line when a copyright and license is not present in all source files
+  # set(ament_cmake_copyright_FOUND TRUE) the following line skips cpplint (only
+  # works in a git repo) uncomment the line when this package is not in a git
+  # repo set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 
