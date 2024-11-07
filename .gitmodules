@@ -13,3 +13,6 @@
 [submodule "ros_ws/src/ros2-vicon-bridge"]
 	path = ros_ws/src/ros2-vicon-bridge
 	url = https://github.com/dasc-lab/ros2-vicon-bridge.git
+[submodule "ros_ws/src/dasc_ros_nvblox"]
+	path = ros_ws/src/dasc_ros_nvblox
+	url = git@github.com:dasc-lab/dasc_ros_nvblox.git
