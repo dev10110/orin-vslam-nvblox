@@ -18,7 +18,7 @@ services:
       - /opt/nvidia/nsight-systems-cli:/opt/nvidia/nsight-systems-cli
       - /usr/share/vpi3:/usr/share/vpi3
       - /dev/input:/dev/input
-        # - /run/jtop.sock:/run/jtop.sock:ro
+      - /run/jtop.sock:/run/jtop.sock:ro
     environment:
       - DISPLAY=$DISPLAY
       - NVIDIA_VISIBLE_DEVICES=all

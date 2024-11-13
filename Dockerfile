@@ -602,6 +602,19 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # fix setuptools
 RUN pip3 uninstall setuptools_scm -y && pip3 install setuptools
 
+#########################################
+######### INSTALL EIGEN3.3.7 ############
+#########################################
+WORKDIR /root
+RUN git clone https://gitlab.com/libeigen/eigen.git --branch 3.3.7 --single-branch
+WORKDIR /root/eigen/build
+RUN cmake .. && make && make install
+
+
+RUN --mount=type=cache,target=/var/cache/apt \
+  apt-get update && apt-get install -y \
+  ros-${ROS_DISTRO}-pcl-ros
+
 ##########################################
 ########### FINALIZE #####################
 ##########################################

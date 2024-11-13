@@ -40,7 +40,9 @@ def generate_launch_description() -> LaunchDescription:
         namespace='camera',
         package='realsense2_camera',
         plugin='realsense2_camera::RealSenseNodeFactory',
-        parameters=[config_file])
+        parameters=[config_file],
+        extra_arguments=[{'use_intra_process_comms': False}]
+        )
 
 
     actions = args.get_launch_actions()

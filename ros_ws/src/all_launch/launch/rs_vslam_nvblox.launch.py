@@ -15,6 +15,10 @@ def generate_launch_description() -> LaunchDescription:
     args.add_arg('rosbag_args', '', description='Additional args for ros2 bag play.', cli=True)
     args.add_arg('log_level', 'info', choices=['debug', 'info', 'warn'], cli=True)
     args.add_arg('run_rviz', False, cli=True)
+    args.add_arg('run_realsense', True, cli=True)
+    args.add_arg('run_vslam', True, cli=True)
+    args.add_arg('run_nvblox', True, cli=True)
+
     actions = args.get_launch_actions()
 
     # Globally set use_sim_time if we're running from bag or sim
@@ -27,7 +31,8 @@ def generate_launch_description() -> LaunchDescription:
             'all_launch',
             'launch/sensors/realsense.launch.py',
             launch_arguments={'container_name': NVBLOX_CONTAINER_NAME},
-            condition=UnlessCondition(lu.is_valid(args.rosbag))))
+            condition= UnlessCondition(lu.is_valid(args.rosbag)) and IfCondition(lu.is_valid(args.run_realsense)))
+        )
 
     # Visual SLAM
     actions.append(
@@ -39,16 +44,20 @@ def generate_launch_description() -> LaunchDescription:
             },
             # Delay for 1 second to make sure that the static topics from the rosbag are published.
             delay=1.0,
+            condition=IfCondition(lu.is_valid(args.run_vslam))
             ))
 
-    # # Nvblox
-    # actions.append(
-    #     lu.include(
-    #         'all_launch',
-    #         'launch/perception/nvblox.launch.py',
-    #         launch_arguments={
-    #             'container_name': NVBLOX_CONTAINER_NAME,
-    #         }))
+    # Nvblox
+    actions.append(
+        lu.include(
+            'all_launch',
+            'launch/perception/nvblox.launch.py',
+            launch_arguments={
+                'container_name': NVBLOX_CONTAINER_NAME,
+            },
+            delay=2.0, # take it easy...
+            condition=IfCondition(lu.is_valid(args.run_nvblox))
+            ))
 
     # Play ros2bag
     actions.append(

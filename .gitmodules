@@ -16,3 +16,6 @@
 [submodule "ros_ws/src/dasc_ros_nvblox"]
 	path = ros_ws/src/dasc_ros_nvblox
 	url = git@github.com:dasc-lab/dasc_ros_nvblox.git
+[submodule "ros_ws/src/eigen/eigen_3_3_7/eigen"]
+	path = ros_ws/src/eigen/eigen_3_3_7/eigen
+	url = https://gitlab.com/libeigen/eigen.git
