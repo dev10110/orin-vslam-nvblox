@@ -38,7 +38,7 @@ def generate_launch_description() -> LaunchDescription:
     # Bag recording
     realsense_topics = [
         '/tf_static',
-        '/camera/color/image_raw/camera_info', 
+        '/camera/color/camera_info', 
         '/camera/color/image_raw',
         '/camera/depth/camera_info', 
         '/camera/depth/image_rect_raw',
@@ -53,11 +53,11 @@ def generate_launch_description() -> LaunchDescription:
         '/tf',
         '/tf_static',
         '/visual_slam/status',
-        '/visual_slam/tracking/odometry',
-        '/visual_slam/tracking/vo_path',
+        # '/visual_slam/tracking/odometry',
+        # '/visual_slam/tracking/vo_path',
         '/visual_slam/tracking/vo_pose',
         '/visual_slam/tracking/vo_pose_covariance',
-        '/visual_slam/vis/observations_cloud',
+        # '/visual_slam/vis/observations_cloud',
     ]
 
     px4_topics = [

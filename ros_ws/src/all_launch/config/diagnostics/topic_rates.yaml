@@ -1,5 +1,5 @@
 topics:
-  - name: /camera/color/image_raw/camera_info
+  - name: /camera/color/camera_info
     type: sensor_msgs/msg/CameraInfo
     expected_rate: 15.0
     tolerance: 0.10
@@ -9,8 +9,13 @@ topics:
     expected_rate: 30.0
     tolerance: 0.10
     window: 30
-  - name: /visual_slam/tracking/vo_pose_covariance
-    type: geometry_msgs/msg/PoseWithCovarianceStamped
+  - name: /visual_slam/tracking/vo_pose
+    type: geometry_msgs/msg/PoseStamped
     expected_rate: 30.0
+    tolerance: 0.10
+    window: 20
+  - name: /nvblox_node/esdf_pointcloud
+    type: geometry_msgs/msg/PoseStamped
+    expected_rate: 5.0
     tolerance: 0.10
     window: 20

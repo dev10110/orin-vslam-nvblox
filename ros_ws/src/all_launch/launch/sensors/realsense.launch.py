@@ -42,7 +42,7 @@ def generate_launch_description() -> LaunchDescription:
         plugin='realsense2_camera::RealSenseNodeFactory',
         parameters=[config_file],
         remappings=[
-            ("/camera/color/camera_info", "/camera/color/image_raw/camera_info")
+            # ("/camera/color/camera_info", "/camera/color/image_raw/camera_info")
             ],
         extra_arguments=[{'use_intra_process_comms': False}]
         )

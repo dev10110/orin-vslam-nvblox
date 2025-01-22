@@ -10,7 +10,7 @@ default:
 
 # clean all packages
 clean:
-	@echo "Cleaning env"
+	@echo "Cleaning env, rm -rf build/ install/"
 	rm -rf build install
 
 # Test all packages

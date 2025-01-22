@@ -11,6 +11,7 @@ from std_msgs.msg import Float32MultiArray
 from nav_msgs.msg import Odometry
 from px4_msgs.msg import TrajectorySetpoint
 from sensor_msgs.msg import Joy
+from geometry_msgs.msg import PoseStamped
 
 
 def euler_from_quaternion(quaternion):
@@ -42,16 +43,16 @@ class ObsMapProcNode(Node):
     def __init__(self):
         super().__init__('obs_map_processor')
         qos_profile = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
-        # self.subscriber_map_slice = self.create_subscription(
-        #     DistanceMapSlice, 
-        #     '/nvblox_node/map_slice', 
-        #     self.nvblox_map_callback, 
-        #     qos_profile)
-        # self.subscriber_odom = self.create_subscription(
-        #     Odometry,
-        #     '/visual_slam/tracking/odometry',
-        #     self.odom_callback,
-        #     qos_profile)
+        self.subscriber_map_slice = self.create_subscription(
+            DistanceMapSlice, 
+            '/nvblox_node/map_slice', 
+            self.nvblox_map_callback, 
+            qos_profile)
+        self.subscriber_odom = self.create_subscription(
+            PoseStamped,
+            '/visual_slam/tracking/vo_pose',
+            self.odom_callback,
+            qos_profile)
         #self.subscriber_cmd = self.create_subscription(TrajectorySetpoint, '/px4_1/fmu/in/trajectory_setpoint', self.cmd_callback, QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT))
         self.joystick_subscriber = self.create_subscription(
             Joy,
@@ -98,7 +99,7 @@ class ObsMapProcNode(Node):
         self.yaw_rate = 0.0
         self.MAX_SPEED = 0.5
         self.MAX_STEER = 3.0
-        self.gear = 1
+        self.gear = -1
         print("ObsMapProcNode initialized.")
 
     def joystick_callback(self, msg):
@@ -112,9 +113,9 @@ class ObsMapProcNode(Node):
         BackGear = msg.buttons[0]
 
         if FrontGear:
-            self.gear = 1
-        elif BackGear:
             self.gear = -1
+        elif BackGear:
+            self.gear = 1
 
         if UserTakeControl:
             control_speed = (msg.axes[4] + 1) / 2  # Right trigger
@@ -132,8 +133,8 @@ class ObsMapProcNode(Node):
             self.lin_vel = 0.0
 
 
-        #FIXME: temporal
-        self.publish_wheel_vel(self.lin_vel, self.yaw_rate)
+        # #FIXME: temporal
+        # self.publish_wheel_vel(self.lin_vel, self.yaw_rate)
 
     def publish_wheel_vel(self, lin_vel, yaw_rate):
 
@@ -167,9 +168,9 @@ class ObsMapProcNode(Node):
         line in red.
         """
         # --- 1. Extract pose, orientation, etc. ---
-        pose = msg.pose.pose.position
-        orientation_quat = msg.pose.pose.orientation
-        velocity = msg.twist.twist.linear
+        pose = msg.pose.position
+        orientation_quat = msg.pose.orientation
+        # velocity = msg.twist.twist.linear
         
         # Convert quaternion to Euler angles (roll, pitch, yaw)
         roll, pitch, yaw = euler_from_quaternion(orientation_quat)
@@ -283,7 +284,7 @@ class ObsMapProcNode(Node):
         submap_final = cv2.rotate(submap_upsampled, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
         # --- 8. Save (or publish) the final submap ---
-        cv2.imwrite("/root/ros_ws/src/truncated_submap.png", submap_final)
+        # cv2.imwrite("/root/ros_ws/truncated_submap.png", submap_final)
         
         # --- 9. Log or debug prints ---
         # self.get_logger().info(

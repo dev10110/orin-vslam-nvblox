@@ -20,7 +20,13 @@ def add_nvblox(args: lu.ArgumentContainer) -> List[Action]:
     config = lu.get_path('all_launch', 'config/nvblox/nvblox_base.yaml')
     remappings = get_realsense_remappings()
 
-    remappings.append( ("/pose", "/visual_slam/tracking/vo_pose") )
+
+    # use the pose from visual slam to construct NvBlox
+    remappings.append( 
+        ("/pose", "/visual_slam/tracking/vo_pose"))
+    remappings.append(
+        ("/pose_with_relative_covariance", "/visual_slam/tracking/vo_pose_with_relative_covariance")
+        )
 
     parameters = []
     parameters.append(config)

@@ -17,13 +17,17 @@ def generate_launch_description() -> LaunchDescription:
     args.add_arg('run_rviz', False, cli=True)
     args.add_arg('run_realsense', True, cli=True)
     args.add_arg('run_vslam', True, cli=True)
+    args.add_arg('run_relative_covariance', True, cli=True)
     args.add_arg('run_nvblox', True, cli=True)
+    args.add_arg('loop', False, cli=True)
+    args.add_arg('use_sim_time', False, cli=True)
 
     actions = args.get_launch_actions()
 
     # Globally set use_sim_time if we're running from bag or sim
     actions.append(
-        SetParameter('use_sim_time', True, condition=IfCondition(lu.is_valid(args.rosbag))))
+        SetParameter('use_sim_time', True, 
+                     condition=IfCondition(lu.is_valid(args.use_sim_time)) or IfCondition(lu.is_valid(args.rosbag))))
 
     # Realsense
     actions.append(
@@ -47,6 +51,15 @@ def generate_launch_description() -> LaunchDescription:
             condition=IfCondition(lu.is_valid(args.run_vslam))
             ))
 
+    # relative covariance calculation
+    actions.append(
+            lu.include(
+                "all_launch",
+                "launch/perception/relative_covariance.launch.py",
+                condition=IfCondition(lu.is_valid(args.run_relative_covariance)),
+                ))
+
+
     # Nvblox
     actions.append(
         lu.include(
@@ -62,6 +75,7 @@ def generate_launch_description() -> LaunchDescription:
     # Play ros2bag
     actions.append(
         lu.play_rosbag(
+            loop= lu.is_valid(args.loop),
             bag_path=args.rosbag,
             additional_bag_play_args=args.rosbag_args,
             condition=IfCondition(lu.is_valid(args.rosbag))))

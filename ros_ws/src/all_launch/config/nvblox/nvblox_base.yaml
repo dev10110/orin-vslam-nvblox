@@ -2,21 +2,31 @@
   ros__parameters:
     # miscellaneous
     voxel_size: 0.075
+
+    # decide which transforms source we are using
+    #    if use_topic_transforms = true, prioritize using the topic to get the global->base_link transform
+    #    if use_topic_transforms == false, it will use the /tf topic to get global->base_link 
+    #    to allow for the sensor to base_link transform to be grabbed, use_tf_transforms needs to be true too. 
     use_tf_transforms: true
-    use_topic_transforms: false
+    use_topic_transforms: true
+    
 
     # esdf settings
     compute_esdf: true
     use_certified_tsdf: true
+    certified_n_std: 1.0 # how many std devs to use when deflating the ESDF
+    deallocate_fully_deflated_blocks: true
 
     esdf_update_rate_hz: 5.0
     esdf_2d: false
 
+    # choose whether or not to publish the slices
     esdf_distance_slice: true
     esdf_slice_height: 0.0
     esdf_2d_min_height: -0.1
     esdf_2d_max_height: 0.1
 
+    # settings for the full esdf pointcloud publisher
     esdf_3d_origin_frame_id: "camera_link"
     esdf_3d_pub_range_x: 1.5
     esdf_3d_pub_range_y: 1.5
@@ -25,7 +35,7 @@
 
     # mesh settings
     compute_mesh: true
-    mesh_update_rate_hz: 1.0
+    mesh_update_rate_hz: 5.0
 
     # color settings
     use_color: false

@@ -41,4 +41,13 @@ def generate_launch_description() -> LaunchDescription:
             'launch/visualization/rviz.launch.py',
             condition=IfCondition(args.run_rviz)))
 
+    actions.append(
+        lu.include(
+            'all_launch',
+            'launch/visualization/rviz.launch.py',
+            launch_arguments = {
+                "rviz_config": lu.get_path("all_launch", "config/visualization/certified.rviz")
+                },
+            condition=IfCondition(args.run_rviz)))
+
     return LaunchDescription(actions)
