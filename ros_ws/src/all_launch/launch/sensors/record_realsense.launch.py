@@ -22,7 +22,7 @@ import isaac_ros_launch_utils as lu
 def generate_launch_description() -> LaunchDescription:
     args = lu.ArgumentContainer()
     args.add_arg('run_realsense', True, cli=True)
-    args.add_arg('run_rqt', True, cli=True)
+    args.add_arg('run_rqt', False, cli=True)
     args.add_arg('output', 'None', cli=True)
 
     actions = args.get_launch_actions()
@@ -57,9 +57,9 @@ def generate_launch_description() -> LaunchDescription:
     # Bag recording
     realsense_topics = [
         '/tf_static', '/camera/color/camera_info', '/camera/color/image_raw',
-        '/camera/realsense_splitter_node/output/depth', '/camera/depth/camera_info',
-        '/camera/realsense_splitter_node/output/infra_1', '/camera/infra1/camera_info',
-        '/camera/realsense_splitter_node/output/infra_2', '/camera/infra2/camera_info'
+        # '/camera/realsense_splitter_node/output/depth', '/camera/depth/camera_info',
+        # '/camera/realsense_splitter_node/output/infra_1', '/camera/infra1/camera_info',
+        # '/camera/realsense_splitter_node/output/infra_2', '/camera/infra2/camera_info'
     ]
     record_action = lu.record_rosbag(topics=" ".join(realsense_topics), bag_path=args.output)
     actions.append(

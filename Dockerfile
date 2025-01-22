@@ -621,6 +621,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 FROM ros2_rs_px4_vslam AS ros2_ws
 
+RUN python3 -m pip install prettytable tqdm 
+
 # install the RTPS profile
 COPY ./docker/middleware_profiles/rtps_udp_profile.xml /usr/local/share/middleware_profiles/rtps_udp_profile.xml
 

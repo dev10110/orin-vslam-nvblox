@@ -1,0 +1,16 @@
+topics:
+  - name: /camera/color/image_raw/camera_info
+    type: sensor_msgs/msg/CameraInfo
+    expected_rate: 15.0
+    tolerance: 0.10
+    window: 15
+  - name: /camera/infra1/camera_info
+    type: sensor_msgs/msg/CameraInfo
+    expected_rate: 30.0
+    tolerance: 0.10
+    window: 30
+  - name: /visual_slam/tracking/vo_pose_covariance
+    type: geometry_msgs/msg/PoseWithCovarianceStamped
+    expected_rate: 30.0
+    tolerance: 0.10
+    window: 20

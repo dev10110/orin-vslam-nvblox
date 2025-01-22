@@ -1,0 +1,3 @@
+noChunking: true
+noSummaryCRC: true
+compressionLevel: "Fastest"

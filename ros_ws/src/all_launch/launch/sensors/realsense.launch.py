@@ -41,6 +41,9 @@ def generate_launch_description() -> LaunchDescription:
         package='realsense2_camera',
         plugin='realsense2_camera::RealSenseNodeFactory',
         parameters=[config_file],
+        remappings=[
+            ("/camera/color/camera_info", "/camera/color/image_raw/camera_info")
+            ],
         extra_arguments=[{'use_intra_process_comms': False}]
         )
 
@@ -68,7 +71,8 @@ def generate_launch_description() -> LaunchDescription:
                 "base_link",
                 "camera_link",
                 translation=[0.04, 0.0, 0.04],
-                orientation_rpy=[0.0, 0.0, math.pi]
+                # orientation_rpy=[0.0, 0.0, math.pi]
+                orientation_rpy=[0.0, 0.0, 0.0],
                 )
             )
 

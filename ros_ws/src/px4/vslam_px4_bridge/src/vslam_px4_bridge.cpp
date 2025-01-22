@@ -15,7 +15,7 @@ class VslamPX4Bridge : public rclcpp::Node {
 public:
   VslamPX4Bridge() : Node("vslam_px4_bridge") {
 
-    std::string px4_pub_name = "/px4_2/fmu/in/vehicle_visual_odometry";
+    std::string px4_pub_name = "/px4_7/fmu/in/vehicle_visual_odometry";
     std::string vslam_sub_name = "/visual_slam/tracking/odometry";
 
     RCLCPP_INFO(this->get_logger(), "Using Vslam -> Visual Odometry callback!");

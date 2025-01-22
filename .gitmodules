@@ -19,3 +19,12 @@
 [submodule "ros_ws/src/eigen/eigen_3_3_7/eigen"]
 	path = ros_ws/src/eigen/eigen_3_3_7/eigen
 	url = https://gitlab.com/libeigen/eigen.git
+[submodule "ros_ws/src/topic_tools"]
+	path = ros_ws/src/topic_tools
+	url = https://github.com/ros-tooling/topic_tools.git
+[submodule "ros_ws/src/rosbag2"]
+	path = ros_ws/src/rosbag2
+	url = git@github.com:ros2/rosbag2.git
+[submodule "ros_ws/src/ros2_topic_rate_monitor"]
+	path = ros_ws/src/ros2_topic_rate_monitor
+	url = git@github.com:dasc-lab/ros2_topic_rate_monitor.git

@@ -22,7 +22,7 @@ def generate_launch_description():
     run_mavlink_arg = DeclareLaunchArgument(
             'run_mavlink', default_value="True")
     robot_name_arg = DeclareLaunchArgument(
-            'robot_name', default_value="px4_2")
+            'robot_name', default_value="px4_7")
 
     microXRCE_bridge = ExecuteProcess(
             cmd=['MicroXRCEAgent', 'serial', '--dev', '/dev/ttyUSB1', '-b', '921600'],
@@ -47,6 +47,12 @@ def generate_launch_description():
         parameters=[{'px4_name': robot_name, 'vicon_name': robot_name}],
         condition=IfCondition(LaunchConfiguration('run_vicon')),
     )
+    vslam_px4_bridge_node = Node(
+        package='vslam_px4_bridge',
+        executable='bridge',
+        output='screen',
+        parameters=[{'px4_name': robot_name, 'vicon_name': robot_name}],
+    )
 
     vicon_launch  = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([
@@ -62,5 +68,6 @@ def generate_launch_description():
         microXRCE_bridge,
         mavlink,
         vicon_px4_bridge_node,
-        vicon_launch
+        vicon_launch,
+        vslam_px4_bridge_node,
         ])

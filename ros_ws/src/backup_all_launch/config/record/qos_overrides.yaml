@@ -1,8 +1,0 @@
-# qos_overrides.yaml
-
-# define a default qos for all the topics to be sensor_data
-qos_profiles:
-  default:
-    reliability: best_effort  # or "reliable"
-    durability: volatile      # or "transient_local"
-    depth: 10                 # Default queue depth
