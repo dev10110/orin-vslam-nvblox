@@ -15,7 +15,12 @@ topics:
     tolerance: 0.10
     window: 20
   - name: /nvblox_node/esdf_pointcloud
-    type: geometry_msgs/msg/PoseStamped
+    type: sensor_msgs/msg/PointCloud2
+    expected_rate: 5.0
+    tolerance: 0.10
+    window: 20
+  - name: /nvblox_node/certified_esdf_pointcloud
+    type: sensor_msgs/msg/PointCloud2
     expected_rate: 5.0
     tolerance: 0.10
     window: 20

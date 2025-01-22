@@ -65,10 +65,11 @@ class ObsMapProcNode(Node):
         self.obs_msg = Float32MultiArray()
         
         # Parameters you can tune
-        self.epsilon = 0.1                      # Threshold for obstacles
-        self.submap_size_m = 3.0               # Size of the square region around the robot (meters)
-        self.robot_radius = 0.2                 # Robot radius (meters)
-        self.robot_radius_pixels = 2            # Radius of the robot marker (in pixels, after submap extraction)
+        self.epsilon = 0.075                      # Threshold for obstacles
+        self.submap_size_m = 5.0               # Size of the square region around the robot (meters)
+        self.robot_radius = 0.17                 # Robot radius (meters)
+        self.padding_radius = 0.15                 # Robot radius (meters)
+        self.padding_radius_pixels = 2            # Radius of the robot marker (in pixels, after submap extraction)
         self.orientation_length_pixels = 20     # Length of the orientation line (in pixels, can be tied to speed)
         self.command_arrow_length = 50     
         
@@ -93,13 +94,13 @@ class ObsMapProcNode(Node):
 
         self.upsample_factor = 5
         self.safety_check_time_step = 0.1
-        self.safety_check_duration = 0.5
+        self.safety_check_duration = 1.0
         # cmd from keyboard
         self.lin_vel = 0.0
         self.yaw_rate = 0.0
         self.MAX_SPEED = 0.5
         self.MAX_STEER = 3.0
-        self.gear = -1
+        self.gear = 1
         print("ObsMapProcNode initialized.")
 
     def joystick_callback(self, msg):
@@ -113,9 +114,9 @@ class ObsMapProcNode(Node):
         BackGear = msg.buttons[0]
 
         if FrontGear:
-            self.gear = -1
-        elif BackGear:
             self.gear = 1
+        elif BackGear:
+            self.gear = -1
 
         if UserTakeControl:
             control_speed = (msg.axes[4] + 1) / 2  # Right trigger
@@ -148,8 +149,8 @@ class ObsMapProcNode(Node):
         elif lin_vel < 0:
             lin_vel = np.clip(lin_vel, -self.max_vel, -self.min_vel)
 
-        v_l = lin_vel - yaw_rate * self.L / 2
-        v_r = lin_vel + yaw_rate * self.L / 2
+        v_l = -lin_vel - yaw_rate * self.L / 2
+        v_r = -lin_vel + yaw_rate * self.L / 2
         # if absolute value is smaller than 0.2, then set it to 0.2 with the sign
         if abs(v_l) < self.min_vel:
             v_l = self.min_vel if v_l > 0 else -self.min_vel
@@ -241,7 +242,7 @@ class ObsMapProcNode(Node):
         cv2.circle(
             submap_upsampled,
             (up_robot_px, up_robot_py),
-            self.robot_radius_pixels * self.upsample_factor,  # scale radius if desired
+            self.padding_radius_pixels * self.upsample_factor,  # scale radius if desired
             self.color_robot,  # (B, G, R) for blue
             -1
         )
@@ -282,9 +283,10 @@ class ObsMapProcNode(Node):
         # --- 7. (Optional) Rotate the submap so “up” is the desired orientation ---
         # For example, rotate 90° CCW:
         submap_final = cv2.rotate(submap_upsampled, cv2.ROTATE_90_COUNTERCLOCKWISE)
-
+        # flip in horizontally
+        submap_final = cv2.flip(submap_final, 1)
         # --- 8. Save (or publish) the final submap ---
-        # cv2.imwrite("/root/ros_ws/truncated_submap.png", submap_final)
+        cv2.imwrite("/root/ros_ws/truncated_submap.png", submap_final)
         
         # --- 9. Log or debug prints ---
         # self.get_logger().info(
@@ -336,7 +338,7 @@ class ObsMapProcNode(Node):
         binary_map = np.where(submap == 255, 0, 1).astype(np.uint8)
 
         # Convert robot radius to pixels
-        robot_radius_px = int(self.robot_radius / self.map_resolution)
+        robot_radius_px = int(self.padding_radius / self.map_resolution)
 
         # Use a circular structuring element to dilate obstacles
         structuring_element = cv2.getStructuringElement(
@@ -365,6 +367,11 @@ class ObsMapProcNode(Node):
         robot_x, robot_y = self.robot_x, self.robot_y  # Current robot global position
         yaw = self.robot_yaw  # Current yaw (orientation)
 
+        if self.gear == -1:
+            # change the starting location to the back of the robot
+            robot_x -= self.robot_radius * np.cos(yaw)
+            robot_y -= self.robot_radius * np.sin(yaw)
+
         x_min, x_max, y_min, y_max = submap_min_max
 
         dilated_submap = self.preprocess_map_with_robot_radius(submap)
@@ -392,11 +399,11 @@ class ObsMapProcNode(Node):
             up_pixel_y = int((pixel_y) * self.upsample_factor)
 
             # Check if the position is an obstacle or unknown
-            if np.sum(dilated_submap[pixel_y, pixel_x]) != 255*3:  # in the original submap, 255 is free, but in dilated map, 0 is free
+            if np.sum(dilated_submap[pixel_y, pixel_x]) != 255*3 and step == num_steps-1:  # in the original submap, 255 is free, but in dilated map, 0 is free
                 print("Collision detected with an obstacle at step", step + 1)
 
                 self.safe_lin_vel = 0.0
-                self.safe_yaw_rate /= 3 # allow rotating in place
+                self.safe_yaw_rate /= 1.5 # allow rotating in place
 
                 cv2.circle(
                     submap_upsample,

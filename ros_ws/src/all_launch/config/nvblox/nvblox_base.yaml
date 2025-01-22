@@ -14,10 +14,10 @@
     # esdf settings
     compute_esdf: true
     use_certified_tsdf: true
-    certified_n_std: 1.0 # how many std devs to use when deflating the ESDF
+    certified_n_std: 0.5 # how many std devs to use when deflating the ESDF
     deallocate_fully_deflated_blocks: true
 
-    esdf_update_rate_hz: 5.0
+    esdf_update_rate_hz: 2.0
     esdf_2d: false
 
     # choose whether or not to publish the slices
@@ -35,7 +35,7 @@
 
     # mesh settings
     compute_mesh: true
-    mesh_update_rate_hz: 5.0
+    mesh_update_rate_hz: 2.0
 
     # color settings
     use_color: false
@@ -88,7 +88,7 @@
 
     mapper:
       # tsdf or occupancy integrator
-      projective_integrator_max_integration_distance_m: 5.0 # units of meters
+      projective_integrator_max_integration_distance_m: 8.0 # units of meters
       projective_integrator_truncation_distance_vox: 4.0 # units of voxels
       lidar_projective_integrator_max_integration_distance_m: 10.0
 
@@ -104,7 +104,7 @@
 
       # esdf integrator
       esdf_integrator_min_weight: 0.0001
-      esdf_integrator_max_distance_m: 2.0
+      esdf_integrator_max_distance_m: 1.0
       esdf_integrator_max_site_distance_vox: 5.0
 
       # mesh integrator

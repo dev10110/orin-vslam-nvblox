@@ -14,7 +14,7 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
 
     correlation_coefficient_arg = DeclareLaunchArgument(
-            "correlation_coefficient", default_value = "0.99");
+            "correlation_coefficient", default_value = "0.999999");
 
 
     relative_covariance_node = Node(
